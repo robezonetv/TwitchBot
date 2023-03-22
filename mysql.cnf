@@ -1,0 +1,6 @@
+[client]
+database = mydb
+user = myuser
+password = S3cret
+default-character-set = utf8
+port = 3306
