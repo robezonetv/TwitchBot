@@ -1,6 +1,7 @@
 [client]
-database = mydb
-user = myuser
-password = S3cret
+database = django
+user = django
+password = django
 default-character-set = utf8
 port = 3306
+host = 172.17.0.1

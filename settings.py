@@ -22,7 +22,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'CONN_MAX_AGE': 600,
         'OPTIONS': {
-            'read_default_file': 'mysql.cnf',
+            'read_default_file': os.path.join(BASE_DIR, 'mysql.cnf'),
         },
     },
 }

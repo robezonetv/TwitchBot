@@ -15,11 +15,15 @@ django.setup()
 from db.db_operations import add_user
 from twitchio.ext import commands
 from dotenv import load_dotenv
-from cogs.responder import prepare_responder
-
+#from cogs.responder import SimpleResponses
+#from cogs.kav import kav
+from cmds import *
+import importlib
+import time
+import asyncio
+import glob
 
 load_dotenv()
-
 
 ####################################################
 #               START OF APPLICATION               #
@@ -30,19 +34,37 @@ load_dotenv()
 class Bot(commands.Bot):
 
     def __init__(self):
-        super().__init__(token=os.environ["ACCESS_TOKEN"], prefix='!', initial_channels=['...'])
+        super().__init__(token=os.environ["ACCESS_TOKEN"], prefix='!', initial_channels=['robezonetv'])
 
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')
 
-        prepare_responder(self)
-
     @commands.command()
-    async def hello(self, ctx: commands.Context):
-        await add_user(ctx.author.name)
-        await ctx.send(f"Hello, {ctx.author.name}!")
+    async def reload(self, ctx: commands.Context):
+        if not self.cogs:
+            cogs = self.get_cogs()
+            for cog in cogs:
+                self.load_module(cog)
+        else:
+            cogs = self.get_cogs()
+            for cog in cogs:
+                cogName=cog.split(".")[1]
+                if self.get_cog(cogName) is None:
+                    self.load_module(cog)
+                else:
+                    self.reload_module(cog)
 
+        await add_user(ctx.author.name)
+        await ctx.send(f"All modules reloaded!")
+
+    def get_cogs(self) -> list[str]:
+        cog_files = glob.glob("./cmds/[a-z]*.py")
+        return [
+            f'cmds.{file.split("/")[2].removesuffix(".py")}'
+            for file in cog_files
+            if file.endswith(".py")
+        ]
 
 if __name__ == '__main__':
     bot = Bot()
