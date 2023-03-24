@@ -15,12 +15,6 @@ django.setup()
 from db.db_operations import add_user
 from twitchio.ext import commands
 from dotenv import load_dotenv
-#from cogs.responder import SimpleResponses
-#from cogs.kav import kav
-from cmds import *
-import importlib
-import time
-import asyncio
 import glob
 
 load_dotenv()
@@ -39,15 +33,22 @@ class Bot(commands.Bot):
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')
+        self.reload_commands()
+        await self.connected_channels[0].send('I\'m ready v2!')
 
     @commands.command()
     async def reload(self, ctx: commands.Context):
+        self.reload_commands()
+        await add_user(ctx.author.name)
+        await ctx.send(f"All modules reloaded!")
+    
+    def reload_commands(self):
         if not self.cogs:
-            cogs = self.get_cogs()
+            cogs = self.get_cmds()
             for cog in cogs:
                 self.load_module(cog)
         else:
-            cogs = self.get_cogs()
+            cogs = self.get_cmds()
             for cog in cogs:
                 cogName=cog.split(".")[1]
                 if self.get_cog(cogName) is None:
@@ -55,14 +56,11 @@ class Bot(commands.Bot):
                 else:
                     self.reload_module(cog)
 
-        await add_user(ctx.author.name)
-        await ctx.send(f"All modules reloaded!")
-
-    def get_cogs(self) -> list[str]:
-        cog_files = glob.glob("./cmds/[a-z]*.py")
+    def get_cmds(self) -> list[str]:
+        cmds_files = glob.glob("./cmds/[a-z]*.py")
         return [
             f'cmds.{file.split("/")[2].removesuffix(".py")}'
-            for file in cog_files
+            for file in cmds_files
             if file.endswith(".py")
         ]
 
