@@ -3,21 +3,30 @@
 ############################################################################
 """ Here we'll import the parts of Django we need. It's recommended to leave
 these settings as is, and skip to START OF APPLICATION section below """
+import logging
+
 # Turn off bytecode generation
 import sys
+
+from utils.log import load_logging
+from utils.utils import reloader
+
 sys.dont_write_bytecode = True
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 import django
+
 django.setup()
 # Import your models for use in your script
 
 from db.db_operations import add_user
 from twitchio.ext import commands
 from dotenv import load_dotenv
-import glob
 
 load_dotenv()
+load_logging()
+logger = logging.getLogger(__name__)
 
 ####################################################
 #               START OF APPLICATION               #
@@ -26,44 +35,29 @@ load_dotenv()
 
 
 class Bot(commands.Bot):
-
     def __init__(self):
-        super().__init__(token=os.environ["ACCESS_TOKEN"], prefix='!', initial_channels=['robezonetv'])
+        super().__init__(
+            token=os.environ["ACCESS_TOKEN"],
+            prefix="!",
+            initial_channels=[os.environ["CHANNEL_NAME"]],
+        )
 
     async def event_ready(self):
-        print(f'Logged in as | {self.nick}')
-        print(f'User id is | {self.user_id}')
-        self.reload_commands()
-        await self.connected_channels[0].send('I\'m ready v2!')
+        logger.info(f"User id is | {self.user_id}")
+        self.reload_modules()
+        await self.connected_channels[0].send("I'm ready v2!")
 
     @commands.command()
     async def reload(self, ctx: commands.Context):
-        self.reload_commands()
+        self.reload_modules()
         await add_user(ctx.author.name)
         await ctx.send(f"All modules reloaded!")
-    
-    def reload_commands(self):
-        if not self.cogs:
-            cogs = self.get_cmds()
-            for cog in cogs:
-                self.load_module(cog)
-        else:
-            cogs = self.get_cmds()
-            for cog in cogs:
-                cogName=cog.split(".")[1]
-                if self.get_cog(cogName) is None:
-                    self.load_module(cog)
-                else:
-                    self.reload_module(cog)
 
-    def get_cmds(self) -> list[str]:
-        cmds_files = glob.glob("./cmds/[a-z]*.py")
-        return [
-            f'cmds.{file.split("/")[2].removesuffix(".py")}'
-            for file in cmds_files
-            if file.endswith(".py")
-        ]
+    def reload_modules(self):
+        reloader(self)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
+
     bot = Bot()
     bot.run()
