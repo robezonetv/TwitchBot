@@ -8,6 +8,7 @@ Install poetry and run `poetry install` to install dependencies.
 ```
 ACCESS_TOKEN=abcdefg
 DJANGO_SECRET_KEY=abcdefg
+CHANNEL_NAME=robezonetv
 ```
 
 2. run `poetry run python manage.py migrate` to create the database

@@ -3,8 +3,8 @@
 
 from twitchio.ext import commands
 
-class party(commands.Cog):
 
+class Party(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
@@ -12,5 +12,6 @@ class party(commands.Cog):
     async def party(self, ctx: commands.Context):
         await ctx.send(f"EEEEEEEJ PARTY!!!!")
 
-def prepare(bot: Bot):
-    bot.add_cog(party(bot))
+
+def prepare(bot: commands.Bot):
+    bot.add_cog(Party(bot))

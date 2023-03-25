@@ -3,15 +3,16 @@
 
 from twitchio.ext import commands
 
-class kav(commands.Cog):
 
+class Kava(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.command()
     async def kav(self, ctx: commands.Context):
         await ctx.send(f"XYZ CZK je 16.91 virtualnich kav.")
-        #await ctx.send(f"HA!")
+        # await ctx.send(f"HA!")
 
-def prepare(bot: Bot):
-    bot.add_cog(kav(bot))
+
+def prepare(bot: commands.Bot):
+    bot.add_cog(Kava(bot))
