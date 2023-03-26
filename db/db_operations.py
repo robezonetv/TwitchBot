@@ -7,7 +7,11 @@ import logging
 import time
 
 from django.db.models import F
+<<<<<<< HEAD
 from asgiref.sync import sync_to_async
+=======
+from django.utils.functional import async_to_sync
+>>>>>>> 96dd417b11be1c99c9acc9556dc4ca2c0471b2b3
 
 from db.models import User
 from db.models import TwitchUsers
@@ -17,12 +21,6 @@ logger = logging.getLogger(__name__)
 async def add_user(name):
     logger.info(f"Adding user {name}")
     await User.objects.acreate(name=name)
-
-#async def increase_user_msg_count(name):
-#    logger.info(f"Adding user {name}")
-#    msg_time=int(time.time())
-#    await TwitchUsers.objects.aupdate_or_create(username=name)
-#    await TwitchUsers.objects.filter(username=name).aupdate(msg_count=F("msg_count") + 1, last_msg_timestamp=msg_time)
 
 async def increase_user_msg_count(name: str) -> None:
     msg_time = int(time.time())

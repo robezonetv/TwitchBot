@@ -20,7 +20,6 @@ class ZvuTe(commands.Cog):
     @commands.command()
     async def zvute(self, ctx: commands.Context):
         list_users = await zvute_random_choice_username()
-
         if self.bot.nick in list_users:
             list_users.remove(self.bot.nick)
 

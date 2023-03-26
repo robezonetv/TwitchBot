@@ -13,7 +13,6 @@ class Kava(commands.Cog):
 
     @commands.command()
     async def kav(self, ctx: commands.Context):
-
         await ctx.send(f"XYZ CZK je 16.91 virtualnich kav.")
 
 def prepare(bot: commands.Bot):
