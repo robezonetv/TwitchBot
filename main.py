@@ -20,7 +20,7 @@ import django
 django.setup()
 # Import your models for use in your script
 
-from db.db_operations import add_user
+from db.db_operations import add_user, increase_user_msg_count, zvute_random_choice_username
 from twitchio.ext import commands
 from dotenv import load_dotenv
 
@@ -46,6 +46,10 @@ class Bot(commands.Bot):
         logger.info(f"User id is | {self.user_id}")
         self.reload_modules()
         await self.connected_channels[0].send("I'm ready v2!")
+
+    async def event_message(self, message):
+        await increase_user_msg_count(message.author.name)
+        await self.handle_commands(message)
 
     @commands.command()
     async def reload(self, ctx: commands.Context):
