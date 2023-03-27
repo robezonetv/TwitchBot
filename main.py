@@ -20,8 +20,9 @@ import django
 django.setup()
 # Import your models for use in your script
 
-from db.db_operations import add_user, increase_user_msg_count, zvute_random_choice_username
-from twitchio.ext import commands
+from db.db_operations import *
+import twitchio
+from twitchio.ext import commands, sounds
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -41,6 +42,10 @@ class Bot(commands.Bot):
             prefix="!",
             initial_channels=[os.environ["CHANNEL_NAME"]],
         )
+        #self.player = sounds.AudioPlayer(callback=self.player_done)
+
+    #async def player_done(self):
+    #    print('Finished playing song!')
 
     async def event_ready(self):
         logger.info(f"User id is | {self.user_id}")
@@ -49,7 +54,7 @@ class Bot(commands.Bot):
 
     async def event_message(self, message):
         # Self messages not return message.author
-        if message.author != None:
+        if message.author is not None:
             await increase_user_msg_count(message.author.name)
             await self.handle_commands(message)
 

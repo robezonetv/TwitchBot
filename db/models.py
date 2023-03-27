@@ -9,7 +9,7 @@ class User(models.Model):
         return self.name
 
 class TwitchUsers(models.Model):
-    id = models.AutoField(primary_key=True)
+    twitch_id = models.IntegerField(primary_key=True)
     username = models.CharField(max_length=50)
     msg_count = models.IntegerField(default=0)
     last_msg_timestamp = models.IntegerField(default=0)

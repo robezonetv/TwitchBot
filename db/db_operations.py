@@ -7,11 +7,7 @@ import logging
 import time
 
 from django.db.models import F
-<<<<<<< HEAD
 from asgiref.sync import sync_to_async
-=======
-from django.utils.functional import async_to_sync
->>>>>>> 96dd417b11be1c99c9acc9556dc4ca2c0471b2b3
 
 from db.models import User
 from db.models import TwitchUsers
@@ -24,7 +20,6 @@ async def add_user(name):
 
 async def increase_user_msg_count(name: str) -> None:
     msg_time = int(time.time())
-
     try:
         obj = await TwitchUsers.objects.aget(username=name)
         obj.msg_count += 1
@@ -32,6 +27,7 @@ async def increase_user_msg_count(name: str) -> None:
         await sync_to_async(obj.save)()
         logger.info(f"Updating 'msg_count' for user {name}")
     except TwitchUsers.DoesNotExist:
+        #TODO udelat specialni request na Twitch a ziskat jeho Twitch ID
         await TwitchUsers.objects.acreate(
             username=name, msg_count=1, last_msg_timestamp=msg_time
         )

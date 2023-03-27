@@ -20,12 +20,15 @@ class ZvuTe(commands.Cog):
     @commands.command()
     async def zvute(self, ctx: commands.Context):
         list_users = await zvute_random_choice_username()
+
         if self.bot.nick in list_users:
             list_users.remove(self.bot.nick)
 
         list_users.remove(ctx.author.name)
-        rnd = random.choice(list_users)
-        await ctx.send(f"@{ctx.author.name} pozval na virtualni kavu chatujici @{rnd}")
+
+        if len(list_users) > 0:
+            rnd = random.choice(list_users)
+            await ctx.send(f"@{ctx.author.name} pozval na virtualni kavu chatujici @{rnd}")
 
 def prepare(bot: commands.Bot):
     bot.add_cog(ZvuTe(bot))
