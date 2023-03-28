@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 # ! python3
 
+import logging
+
 from twitchio.ext import commands
 
-import math
-import logging
+from utils.coffee import parse_coffee_amount_from_kav_command, amount_to_coffees
 
 logger = logging.getLogger(__name__)
 
@@ -16,9 +17,16 @@ class Kava(commands.Cog):
     @commands.command()
     async def kav(self, ctx: commands.Context):
         # await ctx.send(f"XYZ CZK je 16.91 virtualnich kav.")
-        amount = int(ctx.message.content.split(" ")[1])
-        coffee = math.ceil(amount * 0.042 / 5)
-        await ctx.send(f"{amount} CZK je tady {coffee} ☕️ pro pana medvidka -> !coffee")
+        amount = parse_coffee_amount_from_kav_command(ctx=ctx)
+        if not amount:
+            await ctx.send(f"!kav <amount>")
+            return
+
+        coffees = amount_to_coffees(amount)
+
+        await ctx.send(
+            f"{amount} CZK je tady {coffees} ☕️ pro pana medvidka -> !coffee"
+        )
 
 
 def prepare(bot: commands.Bot):

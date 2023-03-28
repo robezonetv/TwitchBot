@@ -3,8 +3,8 @@
 ############################################################################
 """ Here we'll import the parts of Django we need. It's recommended to leave
 these settings as is, and skip to START OF APPLICATION section below """
-
 # Turn off bytecode generation
+import logging
 import sys
 
 from utils.log import load_logging
