@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0003_twitchidtouser_alter_twitchusers_id'),
+        ("db", "0003_twitchidtouser_alter_twitchusers_id"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='twitchusers',
-            name='msg_count',
+            model_name="twitchusers",
+            name="msg_count",
             field=models.IntegerField(default=0),
         ),
     ]

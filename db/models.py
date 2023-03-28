@@ -8,6 +8,7 @@ class User(models.Model):
     def __str__(self):
         return self.name
 
+
 class TwitchUsers(models.Model):
     twitch_id = models.IntegerField(primary_key=True)
     username = models.CharField(max_length=50)
@@ -21,6 +22,7 @@ class TwitchUsers(models.Model):
     watch_minutes = models.IntegerField(default=0)
     watch_last_check = models.IntegerField(default=0)
     pixels = models.IntegerField(default=0)
+
 
 class TwitchIdToUser(models.Model):
     twitch_id = models.IntegerField(primary_key=True)

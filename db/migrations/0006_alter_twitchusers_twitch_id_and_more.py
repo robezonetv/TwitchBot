@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0005_remove_twitchusers_id_twitchusers_twitch_id_and_more'),
+        ("db", "0005_remove_twitchusers_id_twitchusers_twitch_id_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='twitchusers',
-            name='username',
+            model_name="twitchusers",
+            name="username",
             field=models.CharField(max_length=50),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='twitch_id',
+            model_name="twitchusers",
+            name="twitch_id",
             field=models.IntegerField(primary_key=True, serialize=False),
         ),
     ]

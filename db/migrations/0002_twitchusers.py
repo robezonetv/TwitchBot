@@ -6,25 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0001_initial'),
+        ("db", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TwitchUsers',
+            name="TwitchUsers",
             fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('username', models.CharField(max_length=50)),
-                ('msg_count', models.IntegerField()),
-                ('last_msg_timestamp', models.IntegerField()),
-                ('follow_date', models.IntegerField()),
-                ('unfollow_date', models.IntegerField()),
-                ('unfollow', models.IntegerField()),
-                ('notified_follow', models.IntegerField()),
-                ('first_watch', models.IntegerField()),
-                ('watch_minutes', models.IntegerField()),
-                ('watch_last_check', models.IntegerField()),
-                ('pixels', models.IntegerField()),
+                ("id", models.IntegerField(primary_key=True, serialize=False)),
+                ("username", models.CharField(max_length=50)),
+                ("msg_count", models.IntegerField()),
+                ("last_msg_timestamp", models.IntegerField()),
+                ("follow_date", models.IntegerField()),
+                ("unfollow_date", models.IntegerField()),
+                ("unfollow", models.IntegerField()),
+                ("notified_follow", models.IntegerField()),
+                ("first_watch", models.IntegerField()),
+                ("watch_minutes", models.IntegerField()),
+                ("watch_last_check", models.IntegerField()),
+                ("pixels", models.IntegerField()),
             ],
         ),
     ]
