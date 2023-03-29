@@ -6,67 +6,67 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('db', '0004_alter_twitchusers_msg_count'),
+        ("db", "0004_alter_twitchusers_msg_count"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='twitchusers',
-            name='id',
+            model_name="twitchusers",
+            name="id",
         ),
         migrations.AddField(
-            model_name='twitchusers',
-            name='twitch_id',
+            model_name="twitchusers",
+            name="twitch_id",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='first_watch',
+            model_name="twitchusers",
+            name="first_watch",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='follow_date',
+            model_name="twitchusers",
+            name="follow_date",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='last_msg_timestamp',
+            model_name="twitchusers",
+            name="last_msg_timestamp",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='notified_follow',
+            model_name="twitchusers",
+            name="notified_follow",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='pixels',
+            model_name="twitchusers",
+            name="pixels",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='unfollow',
+            model_name="twitchusers",
+            name="unfollow",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='unfollow_date',
+            model_name="twitchusers",
+            name="unfollow_date",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='username',
+            model_name="twitchusers",
+            name="username",
             field=models.CharField(max_length=50, primary_key=True, serialize=False),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='watch_last_check',
+            model_name="twitchusers",
+            name="watch_last_check",
             field=models.IntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='twitchusers',
-            name='watch_minutes',
+            model_name="twitchusers",
+            name="watch_minutes",
             field=models.IntegerField(default=0),
         ),
     ]

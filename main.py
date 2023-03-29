@@ -3,9 +3,8 @@
 ############################################################################
 """ Here we'll import the parts of Django we need. It's recommended to leave
 these settings as is, and skip to START OF APPLICATION section below """
-import logging
-
 # Turn off bytecode generation
+import logging
 import sys
 
 from utils.log import load_logging
@@ -20,9 +19,8 @@ import django
 django.setup()
 # Import your models for use in your script
 
-from db.db_operations import *
-import twitchio
-from twitchio.ext import commands, sounds
+from db.db_operations import increase_user_msg_count, add_user
+from twitchio.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -42,9 +40,9 @@ class Bot(commands.Bot):
             prefix="!",
             initial_channels=[os.environ["CHANNEL_NAME"]],
         )
-        #self.player = sounds.AudioPlayer(callback=self.player_done)
+        # self.player = sounds.AudioPlayer(callback=self.player_done)
 
-    #async def player_done(self):
+    # async def player_done(self):
     #    print('Finished playing song!')
 
     async def event_ready(self):
